@@ -17,7 +17,8 @@ vuelo(manizales, cartagena).
 vuelo(medellin, barranquilla).
 vuelo(pasto, bogota).
 vuelo(bogota, pasto).
-
+%-------------------------------------------------
+% QUERYS
 % vuelo(bogota, medellin): true
 % vuelo(bogota, X): x= medellin, cartagena, pasto
 % vuelo(X, medellin): x= bogota
