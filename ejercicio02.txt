@@ -1,0 +1,64 @@
+% Hechos: relación entre ciudades
+ciudad(bogota).
+ciudad(medellin).
+ciudad(cali).
+ciudad(cartagena).
+ciudad(manizales).
+ciudad(barranquilla).
+ciudad(pasto).
+ciudad(monteria).
+
+% Hechos: vuelos directos
+vuelo(bogota, medellin).
+vuelo(medellin, cartagena).
+vuelo(cali, bogota).
+vuelo(bogota, cartagena).
+vuelo(manizales, cartagena).
+vuelo(medellin, barranquilla).
+vuelo(pasto, bogota).
+vuelo(bogota, pasto).
+
+%--------------------------------------------
+% NUEVAS FINCIONES
+escala(X, Z) :- vuelo(X, Y), vuelo(Y, Z).
+
+viaje(X, Z) :- vuelo(X, Z).
+viaje(X, Z) :- vuelo(X, Y), vuelo(Y, Z).
+
+destinos(X, Z) :- vuelo(X, Z).
+destinos(X, Z) :- vuelo(X, Y), vuelo(Y, Z).
+%---------------------------------------------
+% QUERYS
+% escala(bogota, barranquilla): true
+% escala(cali, X): X= medellin, cartagena, pasto
+% viaje(bogota, pasto): true
+% destinos(bogota, X)
+%-----------------------------------------------
+%ejercicio2 animales
+perro(firulais).
+perro(bruno).
+perro(max).
+gato(misu).
+gato(luna).
+gato(chanel).
+gato(orion).
+ave(piolin).
+
+dueno(ana, firulais).
+dueno(ana, misu).
+dueno(luis, luna).
+dueno(luis, orion).
+dueno(luis, firulais).
+dueno(maria, piolin).
+dueno(julia, chanel).
+dueno(pedro, bruno).
+%------------------------------------------------
+% NUEVAS FUNCIONES
+propietarios_perro(X, Y) :- perro(Y), dueno(X, Y).
+propietarios_gato(X, Y) :- gato(Y), dueno(X, Y).
+propietarios_multiples(X) :- dueno(X, Y), dueno(X, Z), Y \= Z.
+%-------------------------------------------------
+% QUERYS
+% propietarios_perro(X, Y): X= ana Y= firulais, X= luis Y= firulais, X= pedro Y= bruno.
+% propietarios_gato(X, Y): X= ana Y= misu, X= luis Y= luna, X= julia Y= chanel, X= luis Y= orion.
+% propietarios_multiples(X): X= ana*2, X= luis*6
