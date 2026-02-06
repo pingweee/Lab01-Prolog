@@ -10,10 +10,21 @@ nota(pedro, 2.3).
 reprueba(X) :- nota(X, Y), Y < 3.0.
 aprueba(X) :- nota(X, Y), Y >= 3.0.
 rango(X, Min, Max) :- nota(X, Y), Y >= Min, Y =< Max.
-clasificacion(X, reprobado) :- nota(X, Y), 0.0 => Y,  Y =< 2.9.
-
+clasificacion(X, reprobado) :- nota(X, Y), Y >= 0.0,  Y =< 2.9.
+clasificacion(X, aprobado) :- nota(X, Y), Y >= 3.0,  Y =< 3.9.
+clasificacion(X, notable) :- nota(X, Y), Y >= 4.0,  Y =< 4.4.
+clasificacion(X, excelente) :- nota(X, Y), Y >= 4.5,  Y =< 5.0.
+distancia((X1, Y1), (X2, Y2), Resultado) :- Resultado is (((X2-X1)**2)+((Y2-Y1)**2))**0.5.
+% Caso base: lista vacía o con un solo punto -> distancia 0
+distancia_total([], 0).
+distancia_total([_], 0).
+distancia_total([P1, P2 | Resto], Total) :- distancia(P1, P2, D1), 
+    distancia_total([P2 | Resto], DResto), Total is D1+DResto.
 %-----------------------------------------------
 %QUERYS:
 % reprueba(X): X = luis, pedro
 % aprueba(X): X = ana, maria, juan.
 % rango(ana, 2.5, 3.0): False (verifica si esta x en ese rango)
+% clasificacion(luis, X): X = reprobado
+% clasificacion(X, reprobado): X = luis, pedro
+% distancia_total([(0,0), (0,3), (4,3), (5,8), (10,11)], Total): X= 17.929971408438085
